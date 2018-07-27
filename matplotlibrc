@@ -1,0 +1,5 @@
+backend : pgf
+text.usetex : True
+font.family : serif
+pgf.texsystem : pdflatex
+pgf.preamble : \usepackage{amsmath}, \usepackage{amssymb}, \usepackage{siunitx}, \usepackage[utf8]{inputenc}, \usepackage[T1]{fontenc}
