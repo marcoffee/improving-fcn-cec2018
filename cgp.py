@@ -283,7 +283,7 @@ class CGP (object):
 
         return better, equal, worse, same
 
-    def run (self, merge = 0, on_change = False, log = fh.log):
+    def run (self, merge, on_change, every, log = fh.log):
         """ Run 1 generation """
 
         self.__generation += 1
@@ -294,24 +294,33 @@ class CGP (object):
 
         # Save generation data
         self.store_data(bet, equ, wor, same, rtime)
+        debug = True
 
-        # Print debug message
-        back = merge == 0 or (self.generation - 1) % merge != 0
+        if every != 0:
+            # Test if it requires printing
+            changed = self.__best_gener[-1] == self.generation
+            debug = (on_change and changed) or (self.generation % every == 0)
 
-        if on_change and back:
-            back = self.__best_gener[-1] != (self.generation - 1)
+        else:
+            # Test if it requires to go back to previous line
+            back = merge == 0 or (self.generation - 1) % merge != 0
 
-        if back:
-            print("\033[F\033[K", end = "", file = log)
+            if on_change and back:
+                back = self.__best_gener[-1] != (self.generation - 1)
 
-        self.print_debug(log)
+            if back:
+                print("\033[F\033[K", end = "", file = log)
 
-    def run_until (self, stop, merge = 0, on_change = False, log = fh.log):
+        if debug:
+            # Print debug message
+            self.print_debug(log)
+
+    def run_until (self, stop, merge, on_change, every, log = fh.log):
         """ Run until stop criteria is met """
         merge = max(merge, 0)
 
         while not stop(self):
-            self.run(merge = merge, on_change = on_change, log = log)
+            self.run(merge, on_change, every, log = log)
 
     def to_integer (self, rea, mul = None, add = None):
         """ Convert a floating point individual to integer """

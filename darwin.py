@@ -41,7 +41,9 @@ argparser.add_argument("-module-name", help = "verilog's module name (defaults t
 argparser.add_argument("-log", type = fh.Log, default = fh.log, help = "file where to print logging")
 argparser.add_argument("-quiet", action = "store_const", const = fh.null, dest = "log", help = "disable logging")
 argparser.add_argument("-merge", type = int, default = 0, help = "merges multiple generations into one line (0 merges all)")
-argparser.add_argument("-print-on-change", action = "store_true", help = "merges when fitness changes.")
+argparser.add_argument("-print-every", type = int, default = 0, help = "print at every n generations (ignores -merge)")
+argparser.add_argument("-print-on-change", action = "store_true", help = "merges or prints when fitness changes")
+argparser.add_argument("-print-only-on-change", action = "store_true", help = "prints only if fitness changed (ignores -merge, -print-every and -print-on-change)")
 
 argparser.add_argument("-raise-keyboard", action = "store_true", help = "raises keyboard interrupt at end if interrupted during evolution")
 argparser.add_argument("-no-save-incomplete", action = "store_false", dest = "save_incomplete", help = "do not save data when keyboard interrupt was raised")
@@ -62,12 +64,16 @@ def main (argv):
     # Initialize the CGP
     gp.setup(args.circuit, kappa, args.mutation, args.log)
 
+    if args.print_only_on_change:
+        args.print_on_change = True
+        args.print_every = np.inf
+
     try:
         # Run the CGP
         gp.run_until((lambda gp: (
             gp.best_fit.item(0) < args.fitness or
             gp.generation >= args.generations
-        )), args.merge, args.print_on_change, log = args.log)
+        )), args.merge, args.print_on_change, args.print_every, log = args.log)
 
     except KeyboardInterrupt as e:
         # Treat interruptions
