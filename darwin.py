@@ -16,8 +16,8 @@ argparser.add_argument("circuit", help = "file containing verilog of circuit to 
 argparser.add_argument("-seed", type = int, default = 0, help = "random seed (-1 means complete random)")
 
 argparser.add_argument("-mutation", type = float, default = 1.0, help = "gene mutation rate by node")
-argparser.add_argument("-lambda", type = int, default = 1, help = "lambda value (children count)", dest = "popsize")
-argparser.add_argument("-kappa", type = float, default = 1.0, help = "number of cols in CGP matrix by nodes on seed circuit")
+argparser.add_argument("-lambda", type = int, default = 1, dest = "popsize", help = "lambda value (children count)")
+argparser.add_argument("-kappa", type = float, default = 1.75, help = "number of cols in CGP matrix by nodes on seed circuit")
 
 argparser.add_argument("-no-neutral-drift", action = "store_false", dest = "neutral_drift", help = "disables neutral drift")
 
@@ -33,8 +33,6 @@ argparser.add_argument("-save-best", help = "save best individual into file (npz
 argparser.add_argument("-save-time", help = "save runtime into file (npz format)")
 argparser.add_argument("-save-energy", help = "save final energy into file (npz format)")
 argparser.add_argument("-save-size", help = "save final size into file (npz format)")
-argparser.add_argument("-save-depth", help = "save final depth into file (npz format)")
-argparser.add_argument("-save-times", help = "save runtime per generation file (npz format)")
 
 argparser.add_argument("-plot", help = "plot best individuals curve into file")
 argparser.add_argument("-verilog", help = "convert the best individual into verilog")
