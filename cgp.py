@@ -607,9 +607,6 @@ class CGP (object):
     def plot (self, file):
         """ Plot energy convergence curve """
 
-        if plt is None:
-            raise Exception("You need `matplotlib` to plot curves.")
-
         plt.figure()
         plt.plot(
             [ *self.__best_gener, self.generation ],

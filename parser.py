@@ -59,7 +59,7 @@ def split_file (fname):
     ).strip())
 
     if info is None:
-        raise Exception("Could not match file.")
+        raise ParserException("Could not match file.")
 
     # Break output into metadata
     return (
