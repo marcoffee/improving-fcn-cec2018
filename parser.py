@@ -152,6 +152,24 @@ def topological_sort (inputs, parents, children):
 
     return order
 
+def find_id (node, node_map, ids, circuit):
+    """ Find node id or insert it if inverted """
+
+    node = node_map.get(node, node)
+
+    if node not in ids:
+        # Create inversor if needed
+        if node[0] == "~":
+            ids[node] = len(ids)
+            circuit.append([ "NOT", ids[plain(node)] ])
+
+    # Could not find a valid argment
+    if node not in ids:
+        raise ParserException("Node `{}` undefined.".format(node))
+
+    return ids[node]
+
+
 def build_circuit (order, inputs, gates, outputs):
     """ Build circuit from pre-processed pieces """
 
@@ -182,29 +200,14 @@ def build_circuit (order, inputs, gates, outputs):
             node_map[invert(node)] = node_map.get(iarg, iarg)
             continue
 
-        arg_ids = []
-
         # Fetch arguments
-        for arg in args:
-            arg = node_map.get(arg, arg)
+        arg_ids = [ find_id(arg, node_map, ids, circuit) for arg in args ]
 
-            if arg not in ids:
-                # Create inversor if needed
-                if arg[0] == "~":
-                    ids[arg] = len(circuit) + len(inputs)
-                    circuit.append([ "NOT", ids[plain(arg)] ])
-
-            # Could not find a valid argment
-            if arg not in ids:
-                raise ParserException("Node `{}` undefined.".format(arg))
-
-            arg_ids.append(ids[arg])
-
-        ids[node] = len(circuit) + len(inputs)
+        ids[node] = len(ids)
         circuit.append([ gate, *arg_ids ])
 
     # Convert outputs to ids
-    outputs = [ ids[node_map.get(out, out)] for out in outputs ]
+    outputs = [ find_id(out, node_map, ids, circuit) for out in outputs ]
 
     return circuit, outputs
 
