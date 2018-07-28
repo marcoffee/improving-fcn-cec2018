@@ -7,7 +7,7 @@ If you have:
 - suggestions of improvements
 - collaboration ideas
 
-contact me in my email (marcoantonio@dcc.ufmg.br)[mailto:marcoantonio@dcc.ufmg.br].
+contact me in my email [marcoantonio@dcc.ufmg.br](mailto:marcoantonio@dcc.ufmg.br).
 
 # Cite us
 
@@ -17,7 +17,8 @@ contact me in my email (marcoantonio@dcc.ufmg.br)[mailto:marcoantonio@dcc.ufmg.b
   booktitle = {2018 IEEE Congress on Evolutionary Computation (CEC)},
   title     = {Improving Energy Efficiency of Field-Coupled Nanocomputing Circuits by Evolutionary Synthesis},
   year      = {2018},
-  month     = {July}
+  month     = {July},
+  note      = {forthcoming}
 }
 ```
 
@@ -27,8 +28,8 @@ Make sure to download the latest version (as of July, 2018) of all dependencies 
 
 ## OS dependencies
 - python3
-- berkeley-abc
 - llvm-dev
+- texlive-full
 
 ## Python 3 dependencies
 - numpy
@@ -47,7 +48,7 @@ calling `$ darwin.py -help`.
 
 ### MAJ format
 
-Majority gates are supported in the format `assign n1 = (i1 & i2) | (i1 & i3) | (i2 & i3)`,
+Majority gates are supported in the format `assign n1 = (i1 & i2) | (i1 & i3) | (i2 & i3);`,
 where `n1 = MAJ(i1, i2, i3)`.
 
 # References
