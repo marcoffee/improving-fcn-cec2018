@@ -645,6 +645,7 @@ class CGP (object):
         plt.legend()
 
         plt.savefig(file, dpi = 300, transparent = True)
+        plt.close()
 
     def verilog (self, gen, act, module = None):
         """ Convert individual to verilog """
