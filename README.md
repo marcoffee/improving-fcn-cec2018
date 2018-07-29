@@ -12,10 +12,10 @@ contact me in my email [marcoantonio@dcc.ufmg.br](mailto:marcoantonio@dcc.ufmg.b
 # Cite us
 
 ```
-@inproceedings{ribeiro2018improving1,
+@inproceedings{ribeiro2018ieeecec,
   author    = {M. A. Ribeiro and I. A. de Carvalho and J. F. Chaves and G. L. Pappa and O. P. Vilela Neto},
   booktitle = {2018 IEEE Congress on Evolutionary Computation (CEC)},
-  title     = {Improving Energy Efficiency of Field-Coupled Nanocomputing Circuits by Evolutionary Synthesis},
+  title     = {{Improving Energy Efficiency of Field-Coupled Nanocomputing Circuits by Evolutionary Synthesis}},
   year      = {2018},
   month     = {July},
   note      = {forthcoming}
@@ -39,7 +39,8 @@ Make sure to download the latest version (as of July, 2018) of all dependencies 
 # How to run
 
 ## Evolving
-Call `$ darwin.py <input> -verilog <output>` to evolve the `<input>` and save it as a verilog on the `<output>`.
+Call `$ darwin.py <input> -generations <gen> -verilog <output>` to evolve the `<input>`
+through `<gen>` generations and save it as a verilog on the `<output>`.
 Both files should use the ABC [1] verilog AIG format extended by the MAJ gates in the format below
 (we added some examples into the folder `data/benchmarks`).
 
